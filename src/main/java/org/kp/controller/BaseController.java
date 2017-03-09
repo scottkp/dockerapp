@@ -11,7 +11,7 @@ public class BaseController {
 	@RequestMapping("/")
 	@ResponseBody
 	String baseGet() {
-		return "Hello World "+System.currentTimeMillis();
+		return "Current Time in ms: "+System.currentTimeMillis();
 	}
 	
 }
