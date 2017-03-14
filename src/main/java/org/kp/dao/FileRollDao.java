@@ -1,32 +1,42 @@
 package org.kp.dao;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.kp.util.ApplicationConstants;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FileRollDao {
 
 	
-	public String getFileRollFile() throws IOException{
+	public String getFileRollFile() throws IOException {
 		
-		File folder = new File("/opt/lib/flume/data");
+		File folder = new File(ApplicationConstants.FILE_ROLL_PATH);
 		File[] listOfFiles = folder.listFiles();
 		
 		if(listOfFiles != null){
 		    for (int i = 0; i < listOfFiles.length; i++) {
 		      if (listOfFiles[i].isFile()) {
+		    	StringBuffer content = new StringBuffer();
 		        System.out.println("File " + listOfFiles[i].getPath());
 		        
 		        FileReader fr = new FileReader(new File(listOfFiles[i].getPath()));
-		        String content = fr.toString();
-		        System.out.println("File Contents" + content);
-		        fr.close();
+		        BufferedReader br = new BufferedReader(fr);
 		        
-		        return content;
+				String sCurrentLine;
+				while ((sCurrentLine = br.readLine()) != null) {
+					content.append(sCurrentLine);
+				}
+				
+		        System.out.println("File Contents" + content);
+		        
+		        fr.close();
+		        br.close();
+		        
+		        return content.toString();
 		      }
 		    }
 		}
