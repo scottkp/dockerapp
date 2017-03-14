@@ -18,9 +18,9 @@ public class FileRollService {
 		String value = "";
 		try{
 			if(type.equals("hadoop")){
-				value = frDao.getFileRollFile();
-			} else {
 				value = hdfsDao.getFileRollFile();
+			} else {
+				value = frDao.getFileRollFile();
 			}
 		} catch(Exception e){
 			
